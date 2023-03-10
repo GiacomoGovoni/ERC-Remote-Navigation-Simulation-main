@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="marsyard">
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+<!--
+    <scene>
+      <sky>
+        <clouds>
+          <speed>12</speed>
+        </clouds>
+      </sky>
+      <shadows>true</shadows>
+    </scene>
+-->
+    <!-- Marsyard -->
+    <include>
+      <uri>model://marsyard_terrain</uri>
+    </include> 
+     <!-- Markers (5 to 11) -->  
+    <include>
+      <uri>model://mark5</uri>
+      <pose>2 0 1 0 0 3.14</pose>
+    </include>    
+    <include>
+      <uri>model://mark6</uri>
+      <pose>21.01 13.21 2 0 0 0</pose>	
+    </include>
+    <include>
+      <uri>model://mark7</uri>
+      <pose>20.96 3.36 2 0 0 0</pose>	
+    </include>
+    <include>
+      <uri>model://mark8</uri>
+      <pose>20.40 -19.41 2 0 0 0</pose>	
+    </include>
+    <include>
+      <uri>model://mark9</uri>
+      <pose>14.77 6.89 2 0 0 0</pose>	
+    </include>
+    <include>
+      <uri>model://mark10</uri>
+      <pose>22.46 -10.36 2 0 0 0</pose>	
+    </include>
+    <include>
+      <uri>model://mark11</uri>
+      <pose>31.56 -18.81 2 0 0 0</pose>	
+    </include>   
+  </world>
+</sdf>

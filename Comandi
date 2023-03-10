@@ -1,0 +1,60 @@
+1-TERMINALE 1/
+	lanciare la simuilazione:
+	$ roslaunch leo_gazebo leo_marsyard.launch
+
+2-TERMINALE 2/
+	stereo_odometry maledetto 
+	$ roslaunch rtabmap_ros stereo_odometry.launch
+
+3-TERMINALE 3/
+
+	avviare il mapping: ASSICURASI DI SELEZIONARE IL DATABASE_PATH CORRETTO
+	avviare la navigazione autonoma:
+	 - per avviarlo in modalità localizzazione, (usa il db creato in precedenza per navigare)
+	   PASSARE L'ARGOMENTO IN QUESTO MODO: localization:=true
+	 - per la modalità mapping non passare nulla
+	 - aggiungere --delete_db_on_start per resettare il database4
+	$ roslaunch rtabmap_ros leo_rtabmap.launch
+
+4-TERMINALE 4/
+	rviz
+	mapping:=true per la config del mapping. false per la config del navigation
+	$ roslaunch rtabmap_ros rviz.launch
+
+5-TERMINALE 5/
+	-nodo teleop: (ritornare al punto di partenza per avere loop closure e migliorare la mappa)
+	$ roslaunch leo_teleop joy_teleop.launch
+
+	-move_base
+	$ roslaunch rtabmap_ros move_base.launch
+	
+
+6-TERMINALE 6/
+	visualizzare la mappa nel database 
+	$ rtabmap DATABASE_PATH
+
+7-TERMINALE 7/
+	attivare il tracking
+	$ roslaunch ar_track_alvar pr2_indiv.launch
+
+---------------------------CAMBI AL PKG ORIGINALE-------------------------
+In leo_gazebo/config/contrllers.yaml enable_odom_tf: true
+--------------------------------------------------------------------------
+
+----------------------------FIX A ERRORI COMUNI---------------------------
+-togliere .git dai package se non si vede codice
+-remap from (quello che vuole il nodo) to (i tuoi topic)
+-chmod +x leo_gazebo/scripts per odom_relay e quell altro
+- $ sudo apt-get install ros-melodic-move-base
+--------------------------------------------------------------------------
+
+--------------------------------SLAM--------------------------------------
+-lanciare 1-2-3-4 (DATABASE_PATH=tilde/.ros/rtabmap.db)
+-andare in giro facendo possibilmete cerchi per loop closure
+-una volta finito CTRL+C sul terminale 3 e controllare che salvi e dove (A)
+-per visualizzare lanciare 5 
+-barra di controllo->open db->tilde/.ros/rtabmap.db
+-finito di vedere barra di controllo->close db
+-per aggiungere un pezzo di mappa rilanciare 3
+-su rviz iniziare a mappare (per vedere il già mappato cliccare map->download map)
+-ripetere da (A)

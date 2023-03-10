@@ -1,0 +1,21 @@
+<launch>
+    <arg name="mapping" default="true" />
+
+    <arg if="$(arg mapping)" name="args_mode" default="-d $(find rtabmap_ros)/launch/leo/config/mapping.rviz"/>
+    <arg unless="$(arg mapping)" name="args_mode" default="-d $(find rtabmap_ros)/launch/leo/config/navigation.rviz"/>
+    <arg name="approx_sync" default="false"/>
+
+    <node pkg="rviz" type="rviz" name="rviz" args="$(arg args_mode)"/>
+    <node pkg="nodelet" type="nodelet" name="points_xyzrgb" args="standalone rtabmap_ros/point_cloud_xyzrgb" output="screen">
+        <remap from="left/image" to="/zed2/left/image_rect_color"/>
+        <remap from="right/image" to="/zed2/right/image_rect_color"/>
+        <remap from="left/camera_info" to="/zed2/left/camera_info"/>
+        <remap from="right/camera_info" to="/zed2/right/camera_info"/>
+
+        <remap from="cloud" to="voxel_cloud" />
+
+        <param name="decimation" type="double" value="4"/>
+        <param name="voxel_size" type="double" value="0.0"/>
+        <param name="approx_sync" type="bool" value="$(arg approx_sync)"/>
+    </node>
+</launch>
